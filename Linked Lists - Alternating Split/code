@@ -1,0 +1,49 @@
+class Node(object):
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+    
+class Context(object):
+    def __init__(self, first, second):
+        self.first = first
+        self.second = second
+    
+class Node(object):
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class Context(object):
+    def __init__(self, first, second):
+        self.first = first
+        self.second = second
+
+def alternating_split(head):
+    if not head or not head.next:
+        raise ValueError('no splitty')
+    first_head = None
+    first_tail = None
+    second_head = None
+    second_tail = None
+    toggle = True
+    current = head
+    while current:
+        next_node = current.next
+        current.next = None
+        if toggle:
+            if not first_head:
+                first_head = first_tail = current
+            else:
+                first_tail.next = current
+                first_tail = current
+        else:
+            if not second_head:
+                second_head = second_tail = current
+            else:
+                second_tail.next = current
+                second_tail = current
+        toggle = not toggle
+        current = next_node
+    return Context(first_head, second_head)
+
+        
